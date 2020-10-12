@@ -357,7 +357,7 @@ if show_animation:
      Create a list of all the class names present in the ground-truth (gt_classes).
 """
 # get a list with the ground-truth files
-ground_truth_files_list = glob.glob(GT_PATH + '/*.txt')
+ground_truth_files_list = glob.glob(GT_PATH + '**/*.txt', recursive=True)
 if len(ground_truth_files_list) == 0:
     error("Error: No ground-truth files found!")
 ground_truth_files_list.sort()
@@ -462,7 +462,7 @@ if specific_iou_flagged:
      Load each of the detection-results files into a temporary ".json" file.
 """
 # get a list with the detection-results files
-dr_files_list = glob.glob(DR_PATH + '/*.txt')
+dr_files_list = glob.glob(DR_PATH + '**/*.txt', recursive=True)
 dr_files_list.sort()
 
 for class_index, class_name in enumerate(gt_classes):
