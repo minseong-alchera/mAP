@@ -19,6 +19,11 @@ parser.add_argument('-q', '--quiet', help="minimalistic console output.", action
 parser.add_argument('-i', '--ignore', nargs='+', type=str, help="ignore a list of classes.")
 # argparse receiving list of classes with specific IoU (e.g., python main.py --set-class-iou person 0.7)
 parser.add_argument('--set-class-iou', nargs='+', type=str, help="set IoU for a specific class.")
+
+parser.add_argument('--img', type=str, default='./input/images-optional/') 
+parser.add_argument('--dr', type=str, default='./input/detection-results/')
+parser.add_argument('--gt', type=str, default='./input/ground-truth/')
+
 args = parser.parse_args()
 
 '''
@@ -44,10 +49,9 @@ if args.set_class_iou is not None:
 # make sure that the cwd() is the location of the python script (so that every path makes sense)
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-GT_PATH = os.path.join(os.getcwd(), 'input', 'ground-truth')
-DR_PATH = os.path.join(os.getcwd(), 'input', 'detection-results')
-# if there are no images then no animation can be shown
-IMG_PATH = os.path.join(os.getcwd(), 'input', 'images-optional')
+GT_PATH  = args.gt
+DR_PATH  = args.dr
+IMG_PATH = args.img
 if os.path.exists(IMG_PATH): 
     for dirpath, dirnames, files in os.walk(IMG_PATH):
         if not files:
